@@ -1,17 +1,19 @@
 from pydantic import BaseModel
+from datetime import datetime
 
 
 class ReadUserSchema(BaseModel):
     id: int
-    tg_username: str
+    tg_id: int
     name: str
+    created_at: datetime
+    updated_at: datetime
 
 
 class AddUserSchema(BaseModel):
-    tg_username: str
+    tg_id: int
     name: str
 
 
 class UpdateUserSchema(BaseModel):
-    tg_username: str
     name: str

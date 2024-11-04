@@ -10,6 +10,8 @@ python = "^3.11"
 fastapi = "^0.115.3"
 sqlalchemy = "^2.0.36"
 uvicorn = "^0.32.0"
+environs = "^11.0.0"
+aiosqlite = "^0.20.0"
 
 
 [build-system]

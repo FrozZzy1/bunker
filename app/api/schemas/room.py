@@ -1,16 +1,18 @@
 from pydantic import BaseModel
 
+from app.api.schemas.player import ReadPlayerSchema
+
 
 class ReadRoomSchema(BaseModel):
     id: int
-    players: int
-    players_id: list[int]
+    code: str
+    capacity: int
+    players: list[ReadPlayerSchema] = []
     state: int
 
 
 class AddRoomSchema(BaseModel):
-    players: int
-    players_id: list[int]
+    capacity: int
     state: int = 0
 
 

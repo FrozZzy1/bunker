@@ -8,7 +8,3 @@ class ReadProfessionSchema(BaseModel):
 
 class AddProfessionSchema(BaseModel):
     title: str
-
-
-class UpdateProfessionSchema(BaseModel):
-    title: str
