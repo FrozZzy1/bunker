@@ -1,20 +1,18 @@
 from pydantic import BaseModel
-from datetime import datetime
+
+from app.api.schemas.player import ReadPlayerSchema
 
 
 class ReadRoomSchema(BaseModel):
     id: int
     code: str
-    players: int
-    players_id: list[int]
+    capacity: int
+    players: list[ReadPlayerSchema] = []
     state: int
-    created_at: datetime
 
 
 class AddRoomSchema(BaseModel):
-    code: str
-    players: int
-    players_id: list[int]
+    capacity: int
     state: int = 0
 
 
