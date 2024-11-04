@@ -11,17 +11,18 @@ users_router = APIRouter(
 
 @users_router.post(
     '',
-    response_model=ReadUserSchema,
     status_code=status.HTTP_201_CREATED,
 )
-async def create(
+async def create_user(
     user: AddUserSchema,
 ):
     user = await UserService.create_user(user)
-    return user
 
 
-@users_router.get('', response_model=list[ReadUserSchema])
-async def get_all():
-    users = await UserService.get_users()
+@users_router.get(
+    '',
+    response_model=list[ReadUserSchema],
+)
+async def get_all_users():
+    users = await UserService.get_all_users()
     return users
