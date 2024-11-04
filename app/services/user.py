@@ -5,12 +5,11 @@ from app.database.repositories.user import UserRepository
 
 class UserService:
     @classmethod
-    async def create_user(cls, user: AddUserSchema) -> UserOrm:
+    async def create_user(cls, user: AddUserSchema) -> None:
         user_dict = user.model_dump()
-        user = await UserRepository.add_user(user_dict)
-        return user
+        await UserRepository.add_one(user_dict)
 
     @classmethod
-    async def get_users(cls) -> list[UserOrm]:
-        users = await UserRepository.get_users()
+    async def get_all_users(cls) -> list[UserOrm]:
+        users = await UserRepository.get_all()
         return users
