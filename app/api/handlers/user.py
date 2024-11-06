@@ -1,6 +1,8 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, status, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.schemas.user import AddUserSchema, ReadUserSchema, UpdateUserSchema # noqa
+from app.database.database import get_session
 from app.services.user import UserService
 
 users_router = APIRouter(
@@ -15,14 +17,15 @@ users_router = APIRouter(
 )
 async def create_user(
     user: AddUserSchema,
+    session: AsyncSession = Depends(get_session),
 ):
-    user = await UserService.create_user(user)
+    await UserService.create_user(session, user)
 
 
 @users_router.get(
     '',
     response_model=list[ReadUserSchema],
 )
-async def get_all_users():
-    users = await UserService.get_all_users()
+async def get_all_users(session: AsyncSession = Depends(get_session)):
+    users = await UserService.get_all_users(session)
     return users
