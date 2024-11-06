@@ -1,3 +1,5 @@
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.api.schemas.player import AddPlayerSchema
 from app.database.models.player import PlayerOrm
 from app.database.repositories.player import PlayerRepository
@@ -5,11 +7,10 @@ from app.database.repositories.player import PlayerRepository
 
 class PlayerService:
     @classmethod
-    async def create_player(cls, card: AddPlayerSchema) -> None:
-        player_dict = card.model_dump()
-        await PlayerRepository.add_one(player_dict)
+    async def create_player(cls, session: AsyncSession, player: AddPlayerSchema) -> None:
+        await PlayerRepository.add_one(session, player)
 
     @classmethod
-    async def get_all_players(cls) -> list[PlayerOrm]:
-        players = await PlayerRepository.get_all()
+    async def get_all_players(cls, session: AsyncSession) -> list[PlayerOrm]:
+        players = await PlayerRepository.get_all(session)
         return players

@@ -12,6 +12,7 @@ class ReadRoomSchema(BaseModel):
 
 
 class AddRoomSchema(BaseModel):
+    code: str | None = None
     capacity: int
     state: int = 0
 
