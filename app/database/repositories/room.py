@@ -3,6 +3,8 @@ from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.schemas.room import AddRoomSchema
+from app.database.models.card import CardOrm
+from app.database.models.player import PlayerOrm
 from app.database.models.room import RoomOrm
 
 
@@ -21,6 +23,9 @@ class RoomRepository:
             select(RoomOrm)
             .options(
                 selectinload(RoomOrm.players)
+                .options(selectinload(PlayerOrm.card)
+                    .options(selectinload(CardOrm.profession))
+                )
             )
         )
         result = await self.session.scalars(query)

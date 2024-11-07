@@ -21,8 +21,6 @@ class AddHealthStateSchema(BaseModel):
 
 class ReadHealthSchema(BaseModel):
     id: int
-    health_title_id: int
-    health_state_id: int
     health_title: ReadHealthTitleSchema
     health_state: ReadHealthStateSchema
 

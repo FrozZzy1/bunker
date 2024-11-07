@@ -9,5 +9,5 @@ class CardOrm(BaseOrm):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     player: Mapped['PlayerOrm'] = relationship()
-    profession_id: Mapped[int] = mapped_column(ForeignKey('professions.id'), unique=True)
+    profession_id: Mapped[int] = mapped_column(ForeignKey('professions.id'))
     profession: Mapped['ProfessionOrm'] = relationship()

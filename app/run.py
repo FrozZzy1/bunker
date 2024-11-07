@@ -6,6 +6,9 @@ from app.api.handlers.room import rooms_router
 from app.api.handlers.profession import professions_router
 from app.api.handlers.card import cards_router
 from app.api.handlers.player import players_router
+from app.api.handlers.health import health_router
+from app.api.handlers.health_state import health_states_router
+from app.api.handlers.health_title import health_titles_router
 from app.database.database import create_tables, delete_tables
 
 
@@ -37,5 +40,8 @@ app.include_router(
         professions_router,
         cards_router,
         players_router,
+        health_router,
+        health_states_router,
+        health_titles_router,
     )
 )

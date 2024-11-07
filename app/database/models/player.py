@@ -10,7 +10,5 @@ class PlayerOrm(BaseOrm):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
     card_id: Mapped[int] = mapped_column(ForeignKey('cards.id'), nullable=True)
-    room_id: Mapped[int] = mapped_column(ForeignKey('rooms.id'))
-    user: Mapped['UserOrm'] = relationship()
     card: Mapped['CardOrm'] = relationship()
-    room: Mapped['RoomOrm'] = relationship('RoomOrm', back_populates='players')
+    room_id: Mapped[int] = mapped_column(ForeignKey('rooms.id'))
