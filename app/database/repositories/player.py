@@ -1,7 +1,9 @@
 from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.schemas.player import AddPlayerSchema
+from app.database.models.card import CardOrm
 from app.database.models.player import PlayerOrm
 
 
@@ -15,8 +17,12 @@ class PlayerRepository:
         await self.session.commit()
         await self.session.refresh(player)
 
-    @classmethod
     async def get_all(self) -> list[PlayerOrm]:
-        query = select(PlayerOrm)
+        query = (
+            select(PlayerOrm)
+            .options(selectinload(PlayerOrm.card)
+            .options(selectinload(CardOrm.profession))
+            )
+        )
         result = await self.session.scalars(query)
         return result

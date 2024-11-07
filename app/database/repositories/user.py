@@ -1,5 +1,6 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.exc import IntegrityError
 
 from app.api.schemas.user import AddUserSchema
 from app.database.models.user import UserOrm
@@ -14,9 +15,12 @@ class UserRepository:
 
     async def add_one(self, data: AddUserSchema) -> None:
         user = UserOrm(**data.model_dump())
-        self.session.add(user)
-        await self.session.commit()
-        await self.session.refresh(user)
+        try:
+            self.session.add(user)
+            await self.session.commit()
+        except IntegrityError:
+            await self.session.rollback()
+            raise
 
     async def get_all(self) -> list[UserOrm]:
         query = select(UserOrm)

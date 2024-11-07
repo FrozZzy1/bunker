@@ -14,7 +14,6 @@ class CardRepository:
         card = CardOrm(**data.model_dump())
         self.session.add(card)
         await self.session.commit()
-        await self.session.refresh(card)
 
     async def get_all(self) -> list[CardOrm]:
         query = (

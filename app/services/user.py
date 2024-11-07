@@ -19,8 +19,6 @@ class UserService:
             await self.user_repository.add_one(user)
         except IntegrityError:
             logger.error(f'User with tg_id={user.tg_id} already exists')
-            # TODO: вынести rollback отдельно
-            await self.session.rollback()
 
     async def get_all_users(self) -> list[UserOrm]:
         users = await self.user_repository.get_all()

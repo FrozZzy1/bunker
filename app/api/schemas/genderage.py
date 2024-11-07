@@ -1,5 +1,6 @@
 from typing import Literal
 
+from enum import Enum
 from pydantic import BaseModel
 
 
@@ -9,6 +10,11 @@ class ReadGenderageSchema(BaseModel):
     age: int
 
 
+class GenderEnum(str, Enum):
+    man = 'мужчина'
+    woman = 'женщина'
+
+
 class AddGenderageSchema(BaseModel):
-    gender: Literal['мужчина', 'женщина']
+    gender: GenderEnum = GenderEnum.man
     age: int
