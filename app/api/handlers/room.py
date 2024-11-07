@@ -19,13 +19,15 @@ async def create_room(
     room: AddRoomSchema,
     session: AsyncSession = Depends(get_session),
 ):
-    await RoomService.create_room(session, room)
+    room_service = RoomService(session)
+    await room_service.create_room(room)
 
 
 @rooms_router.get(
     '',
     response_model=list[ReadRoomSchema],
 )
-async def get_all_rooms(session: AsyncSession = Depends(get_session),):
-    rooms = await RoomService.get_all_rooms(session)
+async def get_all_rooms(session: AsyncSession = Depends(get_session)):
+    room_service = RoomService(session)
+    rooms = await room_service.get_all_rooms()
     return rooms

@@ -19,7 +19,8 @@ async def create_card(
     card: AddCardSchema,
     session: AsyncSession = Depends(get_session),
 ):
-    await CardService.create_card(session, card)
+    card_service = CardService(session)
+    await card_service.create_card(card)
 
 
 @cards_router.get(
@@ -27,5 +28,6 @@ async def create_card(
     response_model=list[ReadCardSchema],
 )
 async def get_all_cards(session: AsyncSession = Depends(get_session)):
-    cards = await CardService.get_all_cards(session)
+    card_service = CardService(session)
+    cards = await card_service.get_all_cards()
     return cards

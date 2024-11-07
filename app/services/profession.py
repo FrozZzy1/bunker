@@ -6,11 +6,12 @@ from app.database.repositories.profession import ProfessionRepository
 
 
 class ProfessionService:
-    @classmethod
-    async def create_profession(cls, session: AsyncSession, profession: AddProfessionSchema) -> None:
-        await ProfessionRepository.add_one(session, profession)
+    def __init__(self, session: AsyncSession) -> None:
+        self.profession_repository = ProfessionRepository(session)
 
-    @classmethod
-    async def get_all_professions(cls, session: AsyncSession) -> list[ProfessionOrm]:
-        professions = await ProfessionRepository.get_all(session)
+    async def create_profession(self, profession: AddProfessionSchema) -> None:
+        await self.profession_repository.add_one(profession)
+
+    async def get_all_professions(self) -> list[ProfessionOrm]:
+        professions = await self.profession_repository.get_all()
         return professions

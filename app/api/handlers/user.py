@@ -19,7 +19,8 @@ async def create_user(
     user: AddUserSchema,
     session: AsyncSession = Depends(get_session),
 ):
-    await UserService.create_user(session, user)
+    user_service = UserService(session)
+    await user_service.create_user(user)
 
 
 @users_router.get(
@@ -27,5 +28,6 @@ async def create_user(
     response_model=list[ReadUserSchema],
 )
 async def get_all_users(session: AsyncSession = Depends(get_session)):
-    users = await UserService.get_all_users(session)
+    user_service = UserService(session)
+    users = await user_service.get_all_users()
     return users

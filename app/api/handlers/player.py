@@ -19,7 +19,8 @@ async def create_player(
     player: AddPlayerSchema,
     session: AsyncSession = Depends(get_session)
 ):
-    await PlayerService.create_player(session, player)
+    player_service = PlayerService(session)
+    await player_service.create_player(player)
 
 
 @players_router.get(
@@ -27,5 +28,6 @@ async def create_player(
     response_model=list[ReadPlayerSchema],
 )
 async def get_all_players(session: AsyncSession = Depends(get_session)):
-    players = await PlayerService.get_all_players(session)
+    player_service = PlayerService(session)
+    players = await player_service.get_all_players()
     return players

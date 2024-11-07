@@ -9,15 +9,16 @@ logger = setup_logger()
 
 
 class UserRepository:
-    @classmethod
-    async def add_one(cls, session: AsyncSession, data: AddUserSchema) -> None:
-        user = UserOrm(**data.model_dump())
-        session.add(user)
-        await session.commit()
-        await session.refresh(user)
+    def __init__(self, session: AsyncSession) -> None:
+        self.session = session
 
-    @classmethod
-    async def get_all(cls, session: AsyncSession) -> list[UserOrm]:
+    async def add_one(self, data: AddUserSchema) -> None:
+        user = UserOrm(**data.model_dump())
+        self.session.add(user)
+        await self.session.commit()
+        await self.session.refresh(user)
+
+    async def get_all(self) -> list[UserOrm]:
         query = select(UserOrm)
-        result = await session.scalars(query)
+        result = await self.session.scalars(query)
         return result
