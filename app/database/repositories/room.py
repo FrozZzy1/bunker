@@ -7,20 +7,21 @@ from app.database.models.room import RoomOrm
 
 
 class RoomRepository:
-    @classmethod
-    async def add_one(cls, session: AsyncSession, data: AddRoomSchema) -> None:
-        room = RoomOrm(**data.model_dump())
-        session.add(room)
-        await session.commit()
-        await session.refresh(room)
+    def __init__(self, session: AsyncSession) -> None:
+        self.session = session
 
-    @classmethod
-    async def get_all(cls, session: AsyncSession) -> list[RoomOrm]:
+    async def add_one(self, data: AddRoomSchema) -> None:
+        room = RoomOrm(**data.model_dump())
+        self.session.add(room)
+        await self.session.commit()
+        await self.session.refresh(room)
+
+    async def get_all(self) -> list[RoomOrm]:
         query = (
             select(RoomOrm)
             .options(
                 selectinload(RoomOrm.players)
             )
         )
-        result = await session.scalars(query)
+        result = await self.session.scalars(query)
         return result

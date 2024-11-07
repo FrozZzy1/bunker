@@ -7,12 +7,13 @@ from app.utils.room_code import generate_room_code
 
 
 class RoomService:
-    @classmethod
-    async def create_room(cls, session: AsyncSession, room: AddRoomSchema) -> None:
-        room.code = await generate_room_code()
-        await RoomRepository.add_one(session, room)
+    def __init__(self, session: AsyncSession) -> None:
+        self.room_repository = RoomRepository(session)
 
-    @classmethod
-    async def get_all_rooms(cls, session: AsyncSession) -> list[RoomOrm]:
-        rooms = await RoomRepository.get_all(session)
+    async def create_room(self, room: AddRoomSchema) -> None:
+        room.code = await generate_room_code()
+        await self.room_repository.add_one(room)
+
+    async def get_all_rooms(self) -> list[RoomOrm]:
+        rooms = await self.room_repository.get_all()
         return rooms

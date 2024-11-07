@@ -1,19 +1,22 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.api.schemas.player import AddPlayerSchema
 from app.database.models.player import PlayerOrm
 
 
 class PlayerRepository:
-    @classmethod
-    async def add_one(cls, session: AsyncSession, data: dict) -> None:
+    def __init__(self, session: AsyncSession) -> None:
+        self.session = session
+
+    async def add_one(self, data: AddPlayerSchema) -> None:
         player = PlayerOrm(**data.model_dump())
-        session.add(player)
-        await session.commit()
-        await session.refresh(player)
+        self.session.add(player)
+        await self.session.commit()
+        await self.session.refresh(player)
 
     @classmethod
-    async def get_all(cls, session: AsyncSession) -> list[PlayerOrm]:
+    async def get_all(self) -> list[PlayerOrm]:
         query = select(PlayerOrm)
-        result = await session.scalars(query)
+        result = await self.session.scalars(query)
         return result

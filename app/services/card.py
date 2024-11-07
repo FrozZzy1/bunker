@@ -6,11 +6,12 @@ from app.database.repositories.card import CardRepository
 
 
 class CardService:
-    @classmethod
-    async def create_card(cls, session: AsyncSession, card: AddCardSchema) -> None:
-        await CardRepository.add_one(session, card)
+    def __init__(self, session: AsyncSession) -> None:
+        self.card_repository = CardRepository(session)
 
-    @classmethod
-    async def get_all_cards(cls, session: AsyncSession) -> list[CardOrm]:
-        cards = await CardRepository.get_all(session)
+    async def create_card(self, card: AddCardSchema) -> None:
+        await self.card_repository.add_one(card)
+
+    async def get_all_cards(self) -> list[CardOrm]:
+        cards = await self.card_repository.get_all()
         return cards

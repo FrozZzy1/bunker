@@ -19,7 +19,8 @@ async def create_profession(
     profession: AddProfessionSchema,
     session: AsyncSession = Depends(get_session),
 ):
-    await ProfessionService.create_profession(session, profession)
+    profession_service = ProfessionService(session)
+    await profession_service.create_profession(profession)
 
 
 @professions_router.get(
@@ -27,5 +28,6 @@ async def create_profession(
     response_model=list[ReadProfessionSchema],
 )
 async def get_all_professions(session: AsyncSession = Depends(get_session)):
-    professions = await ProfessionService.get_all_professions(session)
+    profession_service = ProfessionService(session)
+    professions = await profession_service.get_all_professions()
     return professions
