@@ -11,7 +11,6 @@ logger = setup_logger()
 
 class UserService:
     def __init__(self, session: AsyncSession) -> None:
-        self.session = session
         self.user_repository = UserRepository(session)
 
     async def create_user(self, user: AddUserSchema) -> None:
