@@ -10,4 +10,8 @@ class CardOrm(BaseOrm):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     player: Mapped['PlayerOrm'] = relationship()
     profession_id: Mapped[int] = mapped_column(ForeignKey('professions.id'))
+    phobia_id: Mapped[int] = mapped_column(ForeignKey('phobias.id'))
+    health_id: Mapped[int] = mapped_column(ForeignKey('health.id'))
     profession: Mapped['ProfessionOrm'] = relationship()
+    phobia: Mapped['PhobiaOrm'] = relationship()
+    health: Mapped['HealthOrm'] = relationship()
