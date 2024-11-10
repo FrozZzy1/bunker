@@ -15,7 +15,6 @@ class PlayerRepository:
         player = PlayerOrm(**data.model_dump())
         self.session.add(player)
         await self.session.commit()
-        await self.session.refresh(player)
 
     async def get_all(self) -> list[PlayerOrm]:
         query = (

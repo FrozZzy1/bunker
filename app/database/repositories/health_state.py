@@ -13,7 +13,6 @@ class HealthStateRepository:
         health = HealthStateOrm(**data.model_dump())
         self.session.add(health)
         await self.session.commit()
-        await self.session.refresh(health)
 
     async def get_all_health_states(self) -> HealthStateOrm:
         query = select(HealthStateOrm)

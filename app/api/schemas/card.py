@@ -12,9 +12,9 @@ from app.api.schemas.trait import ReadTraitSchema
 
 class ReadCardSchema(BaseModel):
     id: int
-    # health: ReadHealthSchema
+    health: ReadHealthSchema
     profession: ReadProfessionSchema
-    # phobia: ReadPhobiaSchema
+    phobia: ReadPhobiaSchema
     # baggage: ReadBaggageSchema
     # hobby: ReadHobbySchema
     # trait: ReadTraitSchema
@@ -23,9 +23,9 @@ class ReadCardSchema(BaseModel):
 
 
 class AddCardSchema(BaseModel):
-    # health_id: int
+    health_id: int
     profession_id: int
-    # phobia_id: int
+    phobia_id: int
     # baggage_id: int
     # hobby_id: int
     # trait_id: int

@@ -13,7 +13,6 @@ class ProfessionRepository:
         profession = ProfessionOrm(**data.model_dump())
         self.session.add(profession)
         await self.session.commit()
-        await self.session.refresh(profession)
 
     async def get_all(self) -> list[ProfessionOrm]:
         query = select(ProfessionOrm)

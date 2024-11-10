@@ -14,7 +14,6 @@ class HealthRepository:
         health = HealthOrm(**data.model_dump())
         self.session.add(health)
         await self.session.commit()
-        await self.session.refresh(health)
 
     async def get_all_health(self) -> HealthOrm:
         query = (
