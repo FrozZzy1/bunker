@@ -5,14 +5,12 @@ from sqlalchemy.exc import IntegrityError
 from app.api.schemas.user import AddUserSchema
 from app.database.models.user import UserOrm
 from app.utils.logging import setup_logger
+from app.utils.repository import AbsRepo
 
 logger = setup_logger()
 
 
-class UserRepository:
-    def __init__(self, session: AsyncSession) -> None:
-        self.session = session
-
+class UserRepository(AbsRepo):
     async def add_one(self, data: AddUserSchema) -> None:
         user = UserOrm(**data.model_dump())
         try:

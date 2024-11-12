@@ -7,10 +7,7 @@ from app.database.models.card import CardOrm
 from app.database.models.player import PlayerOrm
 
 
-class PlayerRepository:
-    def __init__(self, session: AsyncSession) -> None:
-        self.session = session
-
+class PlayerRepository(AbsRepo):
     async def add_one(self, data: AddPlayerSchema) -> None:
         player = PlayerOrm(**data.model_dump())
         self.session.add(player)

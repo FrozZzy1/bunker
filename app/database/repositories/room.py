@@ -9,10 +9,7 @@ from app.database.models.room import RoomOrm
 from app.database.models.health import HealthOrm
 
 
-class RoomRepository:
-    def __init__(self, session: AsyncSession) -> None:
-        self.session = session
-
+class RoomRepository(AbsRepo):
     async def add_one(self, data: AddRoomSchema) -> None:
         room = RoomOrm(**data.model_dump())
         self.session.add(room)

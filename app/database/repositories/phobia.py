@@ -5,10 +5,7 @@ from app.api.schemas.phobia import AddPhobiaSchema
 from app.database.models.phobia import PhobiaOrm
 
 
-class PhobiaRepository:
-    def __init__(self, session: AsyncSession) -> None:
-        self.session = session
-
+class PhobiaRepository(AbsRepo):
     async def add_one(self, data: AddPhobiaSchema) -> None:
         phobia = PhobiaOrm(**data.model_dump())
         self.session.add(phobia)
