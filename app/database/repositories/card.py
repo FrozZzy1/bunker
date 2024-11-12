@@ -7,10 +7,7 @@ from app.database.models.card import CardOrm
 from app.database.models.health import HealthOrm
 
 
-class CardRepository:
-    def __init__(self, session: AsyncSession) -> None:
-        self.session = session
-
+class CardRepository(AbsRepo):
     async def add_one(self, data: AddCardSchema) -> None:
         card = CardOrm(**data.model_dump())
         self.session.add(card)

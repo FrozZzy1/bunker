@@ -5,10 +5,7 @@ from app.api.schemas.health import AddHealthStateSchema
 from app.database.models.health import HealthStateOrm
 
 
-class HealthStateRepository:
-    def __init__(self, session: AsyncSession) -> None:
-        self.session = session
-
+class HealthStateRepository(AbsRepo):
     async def add_one(self, data: AddHealthStateSchema) -> None:
         health = HealthStateOrm(**data.model_dump())
         self.session.add(health)

@@ -5,10 +5,7 @@ from app.api.schemas.health import AddHealthTitleSchema
 from app.database.models.health import HealthTitleOrm
 
 
-class HealthTitleRepository:
-    def __init__(self, session: AsyncSession) -> None:
-        self.session = session
-
+class HealthTitleRepository(AbsRepo):
     async def add_one(self, data: AddHealthTitleSchema) -> None:
         health = HealthTitleOrm(**data.model_dump())
         self.session.add(health)
