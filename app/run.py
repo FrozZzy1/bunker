@@ -10,6 +10,7 @@ from app.api.handlers.health import health_router
 from app.api.handlers.health_state import health_states_router
 from app.api.handlers.health_title import health_titles_router
 from app.api.handlers.phobia import phobias_router
+from app.api.handlers.baggage import baggages_router
 from app.database.database import create_tables, delete_tables
 
 
@@ -45,5 +46,6 @@ app.include_router(
         health_states_router,
         health_titles_router,
         phobias_router,
+        baggages_router,
     )
 )
