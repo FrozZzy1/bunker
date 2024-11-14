@@ -1,6 +1,5 @@
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload, joinedload
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.schemas.room import AddRoomSchema
 from app.database.models.card import CardOrm

@@ -1,6 +1,5 @@
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.schemas.player import AddPlayerSchema
 from app.database.models.card import CardOrm

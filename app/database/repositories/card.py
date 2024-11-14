@@ -1,6 +1,5 @@
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.schemas.card import AddCardSchema
 from app.utils.repository import AbsRepo
@@ -23,7 +22,7 @@ class CardRepository(AbsRepo):
             .options(joinedload(CardOrm.health)
                 .options(joinedload(HealthOrm.health_title))
                 .options(joinedload(HealthOrm.health_state)))
-            .options(joinedload(BaggageOrm.title))
+            .options(joinedload(CardOrm.baggage))
         )
         result = await self.session.scalars(query)
         return result

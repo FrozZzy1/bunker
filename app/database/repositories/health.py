@@ -1,6 +1,5 @@
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.schemas.health import AddHealthSchema
 from app.database.models.health import HealthOrm

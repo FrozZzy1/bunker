@@ -12,6 +12,9 @@ class CardOrm(BaseOrm):
     profession_id: Mapped[int] = mapped_column(ForeignKey('professions.id'))
     phobia_id: Mapped[int] = mapped_column(ForeignKey('phobias.id'))
     health_id: Mapped[int] = mapped_column(ForeignKey('health.id'))
+    baggage_id: Mapped[int] = mapped_column(ForeignKey('baggages.id'))
+
     profession: Mapped['ProfessionOrm'] = relationship()
     phobia: Mapped['PhobiaOrm'] = relationship()
     health: Mapped['HealthOrm'] = relationship()
+    baggage: Mapped['BaggageOrm'] = relationship()

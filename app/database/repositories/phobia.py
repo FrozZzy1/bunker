@@ -1,5 +1,4 @@
 from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.schemas.phobia import AddPhobiaSchema
 from app.database.models.phobia import PhobiaOrm
