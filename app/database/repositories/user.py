@@ -6,6 +6,7 @@ from app.api.schemas.user import AddUserSchema
 from app.database.models.user import UserOrm
 from app.utils.logging import setup_logger
 from app.utils.repository import AbsRepo
+from app.utils.repository import AbsRepo
 
 logger = setup_logger()
 

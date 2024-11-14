@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.schemas.player import AddPlayerSchema
 from app.database.models.card import CardOrm
 from app.database.models.player import PlayerOrm
+from app.utils.repository import AbsRepo
 
 
 class PlayerRepository(AbsRepo):

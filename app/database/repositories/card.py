@@ -3,8 +3,10 @@ from sqlalchemy.orm import joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.schemas.card import AddCardSchema
+from app.utils.repository import AbsRepo
 from app.database.models.card import CardOrm
 from app.database.models.health import HealthOrm
+from app.database.models.baggage import BaggageOrm
 
 
 class CardRepository(AbsRepo):
@@ -20,8 +22,8 @@ class CardRepository(AbsRepo):
             .options(joinedload(CardOrm.phobia))
             .options(joinedload(CardOrm.health)
                 .options(joinedload(HealthOrm.health_title))
-                .options(joinedload(HealthOrm.health_state))
-            )
+                .options(joinedload(HealthOrm.health_state)))
+            .options(joinedload(BaggageOrm.title))
         )
         result = await self.session.scalars(query)
         return result

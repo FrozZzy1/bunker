@@ -3,6 +3,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.schemas.health import AddHealthStateSchema
 from app.database.models.health import HealthStateOrm
+from app.utils.repository import AbsRepo
+
 
 
 class HealthStateRepository(AbsRepo):
