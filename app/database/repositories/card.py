@@ -23,6 +23,10 @@ class CardRepository(AbsRepo):
                 .options(joinedload(HealthOrm.health_title))
                 .options(joinedload(HealthOrm.health_state)))
             .options(joinedload(CardOrm.baggage))
+            .options(joinedload(CardOrm.trait))
+            .options(joinedload(CardOrm.physique))
+            .options(joinedload(CardOrm.genderage))
+            .options(joinedload(CardOrm.hobby))
         )
         result = await self.session.scalars(query)
         return result
