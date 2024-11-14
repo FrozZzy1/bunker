@@ -1,5 +1,4 @@
 from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.schemas.profession import AddProfessionSchema
 from app.database.models.profession import ProfessionOrm

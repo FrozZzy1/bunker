@@ -1,5 +1,4 @@
 from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.schemas.health import AddHealthStateSchema
 from app.database.models.health import HealthStateOrm
