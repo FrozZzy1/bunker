@@ -13,5 +13,5 @@ class BaggageRepository(AbsRepo):
 
     async def get_all(self) -> list[BaggageOrm]:
         query = select(BaggageOrm)
-        result = self.session.scalars(query)
+        result = await self.session.scalars(query)
         return result

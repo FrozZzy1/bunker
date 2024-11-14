@@ -3,6 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.schemas.phobia import AddPhobiaSchema
 from app.database.models.phobia import PhobiaOrm
+from app.utils.repository import AbsRepo
 
 
 class PhobiaRepository(AbsRepo):

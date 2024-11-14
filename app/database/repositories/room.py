@@ -7,6 +7,7 @@ from app.database.models.card import CardOrm
 from app.database.models.player import PlayerOrm
 from app.database.models.room import RoomOrm
 from app.database.models.health import HealthOrm
+from app.utils.repository import AbsRepo
 
 
 class RoomRepository(AbsRepo):

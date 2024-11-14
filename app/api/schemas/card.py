@@ -15,7 +15,7 @@ class ReadCardSchema(BaseModel):
     health: ReadHealthSchema
     profession: ReadProfessionSchema
     phobia: ReadPhobiaSchema
-    # baggage: ReadBaggageSchema
+    baggage: ReadBaggageSchema
     # hobby: ReadHobbySchema
     # trait: ReadTraitSchema
     # physique: ReadPhysiqueSchema
@@ -26,7 +26,7 @@ class AddCardSchema(BaseModel):
     health_id: int
     profession_id: int
     phobia_id: int
-    # baggage_id: int
+    baggage_id: int
     # hobby_id: int
     # trait_id: int
     # physique_id: int

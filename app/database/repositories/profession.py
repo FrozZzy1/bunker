@@ -3,6 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.schemas.profession import AddProfessionSchema
 from app.database.models.profession import ProfessionOrm
+from app.utils.repository import AbsRepo
 
 
 class ProfessionRepository(AbsRepo):
