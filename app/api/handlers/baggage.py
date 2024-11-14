@@ -2,6 +2,7 @@ from fastapi import APIRouter, status, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.schemas.baggage import ReadBaggageSchema, AddBaggageSchema # noqa
+from app.database.models.baggage import BaggageOrm
 from app.services.baggage import BaggageService
 from app.database.database import get_session
 
@@ -19,7 +20,7 @@ async def create_baggage(
     baggage: AddBaggageSchema,
     session: AsyncSession = Depends(get_session),
 ):
-    baggage_service = BaggageService(session)
+    baggage_service = BaggageService(session, BaggageOrm)
     await baggage_service.create_baggage(baggage)
 
 
