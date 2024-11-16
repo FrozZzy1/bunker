@@ -14,5 +14,4 @@ class HealthStateRepository(AbsRepo):
 
     async def get_all_health_states(self) -> HealthStateOrm:
         query = select(HealthStateOrm)
-        result = await self.session.scalars(query)
-        return result
+        return await self.session.scalars(query)

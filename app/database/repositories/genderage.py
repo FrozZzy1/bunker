@@ -13,5 +13,4 @@ class GenderageRepository(AbsRepo):
 
     async def get_all_genderages(self) -> list[GenderageOrm]:
         query = select(GenderageOrm)
-        result = await self.session.scalars(query)
-        return result
+        return await self.session.scalars(query)

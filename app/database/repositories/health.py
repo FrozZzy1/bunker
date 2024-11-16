@@ -18,5 +18,4 @@ class HealthRepository(AbsRepo):
             .options(joinedload(HealthOrm.health_title))
             .options(joinedload(HealthOrm.health_state))
         )
-        result = await self.session.scalars(query)
-        return result
+        return await self.session.scalars(query)

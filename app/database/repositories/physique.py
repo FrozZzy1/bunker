@@ -13,5 +13,4 @@ class PhysiqueRepository(AbsRepo):
 
     async def get_all_physique(self) -> list[PhysiqueOrm]:
         query = select(PhysiqueOrm)
-        result = await self.session.scalars(query)
-        return result
+        return await self.session.scalars(query)

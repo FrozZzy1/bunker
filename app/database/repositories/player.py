@@ -30,5 +30,4 @@ class PlayerRepository(AbsRepo):
             .options(joinedload(CardOrm.hobby))
             )
         )
-        result = await self.session.scalars(query)
-        return result
+        return await self.session.scalars(query)

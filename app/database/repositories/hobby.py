@@ -13,5 +13,4 @@ class HobbyRepository(AbsRepo):
 
     async def get_all_hobbies(self) -> list[HobbyOrm]:
         query = select(HobbyOrm)
-        result = await self.session.scalars(query)
-        return result
+        return await self.session.scalars(query)
