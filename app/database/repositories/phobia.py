@@ -13,5 +13,4 @@ class PhobiaRepository(AbsRepo):
 
     async def get_all_phobias(self) -> list[PhobiaOrm]:
         query = select(PhobiaOrm)
-        result = await self.session.scalars(query)
-        return result
+        return await self.session.scalars(query)

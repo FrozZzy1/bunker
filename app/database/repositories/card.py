@@ -28,5 +28,4 @@ class CardRepository(AbsRepo):
             .options(joinedload(CardOrm.genderage))
             .options(joinedload(CardOrm.hobby))
         )
-        result = await self.session.scalars(query)
-        return result
+        return await self.session.scalars(query)

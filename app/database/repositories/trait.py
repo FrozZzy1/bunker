@@ -13,5 +13,4 @@ class TraitRepository(AbsRepo):
 
     async def get_all_traits(self) -> list[TraitOrm]:
         query = select(TraitOrm)
-        result = await self.session.scalars(query)
-        return result
+        return await self.session.scalars(query)

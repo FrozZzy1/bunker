@@ -13,5 +13,4 @@ class ProfessionRepository(AbsRepo):
 
     async def get_all(self) -> list[ProfessionOrm]:
         query = select(ProfessionOrm)
-        result = await self.session.scalars(query)
-        return result
+        return await self.session.scalars(query)
