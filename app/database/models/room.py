@@ -9,5 +9,4 @@ class RoomOrm(BaseOrm):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     code: Mapped[str] = mapped_column(unique=True)
     capacity: Mapped[int]
-    players: Mapped[list['PlayerOrm']] = relationship()
     state: Mapped[int]

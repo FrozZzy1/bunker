@@ -12,7 +12,7 @@ class RoomService:
 
     async def create_room(self, room: AddRoomSchema) -> None:
         room.code = await generate_room_code()
-        await self.room_repository.add_one(room)
+        return await self.room_repository.add_one(room)
 
     async def get_all_rooms(self) -> list[RoomOrm]:
         rooms = await self.room_repository.get_all()

@@ -7,7 +7,6 @@ class ReadRoomSchema(BaseModel):
     id: int
     code: str
     capacity: int
-    players: list[ReadPlayerSchema] = []
     state: int
 
 

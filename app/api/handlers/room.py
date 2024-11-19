@@ -13,6 +13,7 @@ rooms_router = APIRouter(
 
 @rooms_router.post(
     '',
+    response_model=ReadRoomSchema,
     status_code=status.HTTP_201_CREATED,
 )
 async def create_room(
@@ -20,7 +21,7 @@ async def create_room(
     session: AsyncSession = Depends(get_session),
 ):
     room_service = RoomService(session)
-    await room_service.create_room(room)
+    return await room_service.create_room(room)
 
 
 @rooms_router.get(
