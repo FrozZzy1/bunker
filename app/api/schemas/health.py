@@ -1,9 +1,11 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class ReadHealthTitleSchema(BaseModel):
     id: int
     title: str
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 class AddHealthTitleSchema(BaseModel):
@@ -14,6 +16,8 @@ class ReadHealthStateSchema(BaseModel):
     id: int
     title: str
 
+    model_config = ConfigDict(from_attributes=True)
+
 
 class AddHealthStateSchema(BaseModel):
     title: str
@@ -21,8 +25,10 @@ class AddHealthStateSchema(BaseModel):
 
 class ReadHealthSchema(BaseModel):
     id: int
-    health_title: ReadHealthTitleSchema
-    health_state: ReadHealthStateSchema
+    health_title_id: int
+    health_state_id: int
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 class AddHealthSchema(BaseModel):
