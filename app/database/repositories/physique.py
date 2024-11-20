@@ -1,6 +1,6 @@
 from sqlalchemy import select
 
-from app.api.schemas.physique import AddPhysiqueSchema
+from app.api.schemas.physique import AddPhysiqueSchema, ReadPhysiqueSchema
 from app.database.models.physique import PhysiqueOrm
 from app.utils.repository import AbsRepo
 
@@ -11,6 +11,12 @@ class PhysiqueRepository(AbsRepo):
         self.session.add(physique)
         await self.session.commit()
 
-    async def get_all_physique(self) -> list[PhysiqueOrm]:
+    async def get_all(self) -> list[ReadPhysiqueSchema]:
         query = select(PhysiqueOrm)
-        return await self.session.scalars(query)
+        result = await self.session.scalars(query)
+        return [ReadPhysiqueSchema.model_validate(i) for i in result]
+    
+    async def get_all_id(self) -> list[int]:
+        query = select(PhysiqueOrm.id)
+        result = await self.session.scalars(query)
+        return list(result)

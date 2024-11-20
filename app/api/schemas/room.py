@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from app.api.schemas.player import ReadPlayerSchema
 
@@ -8,6 +8,8 @@ class ReadRoomSchema(BaseModel):
     code: str
     capacity: int
     state: int
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 class AddRoomSchema(BaseModel):

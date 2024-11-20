@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from app.api.schemas.baggage import ReadBaggageSchema
 from app.api.schemas.genderage import ReadGenderageSchema
@@ -21,14 +21,7 @@ class ReadCardSchema(BaseModel):
     physique_id: int
     genderage_id: int
 
-    # health: ReadHealthSchema
-    # profession: ReadProfessionSchema
-    # phobia: ReadPhobiaSchema
-    # baggage: ReadBaggageSchema
-    # hobby: ReadHobbySchema
-    # trait: ReadTraitSchema
-    # physique: ReadPhysiqueSchema
-    # genderage: ReadGenderageSchema
+    model_config = ConfigDict(from_attributes=True)
 
 
 class AddCardSchema(BaseModel):

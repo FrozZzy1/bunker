@@ -1,6 +1,6 @@
 from sqlalchemy import select
 
-from app.api.schemas.health import AddHealthStateSchema
+from app.api.schemas.health import AddHealthStateSchema, ReadHealthStateSchema
 from app.database.models.health import HealthStateOrm
 from app.utils.repository import AbsRepo
 
@@ -12,6 +12,12 @@ class HealthStateRepository(AbsRepo):
         self.session.add(health)
         await self.session.commit()
 
-    async def get_all_health_states(self) -> HealthStateOrm:
+    async def get_all(self) -> list[ReadHealthStateSchema]:
         query = select(HealthStateOrm)
-        return await self.session.scalars(query)
+        result = await self.session.scalars(query)
+        return [ReadHealthStateSchema.model_validate(i) for i in result]
+    
+    async def get_all_id(self) -> list[int]:
+        query = select(HealthStateOrm.id)
+        result = await self.session.scalars(query)
+        return list(result)

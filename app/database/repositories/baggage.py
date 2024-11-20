@@ -1,6 +1,6 @@
 from sqlalchemy import select
 
-from app.api.schemas.baggage import AddBaggageSchema
+from app.api.schemas.baggage import AddBaggageSchema, ReadBaggageSchema
 from app.database.models.baggage import BaggageOrm
 from app.utils.repository import AbsRepo
 
@@ -11,6 +11,13 @@ class BaggageRepository(AbsRepo):
         self.session.add(baggage)
         await self.session.commit()
 
-    async def get_all(self) -> list[BaggageOrm]:
+    async def get_all(self) -> list[ReadBaggageSchema]:
         query = select(BaggageOrm)
-        return await self.session.scalars(query)
+        result = await self.session.scalars(query)
+        return [ReadBaggageSchema.model_validate(i) for i in result]
+
+    async def get_all_id(self) -> list[int]:
+        query = select(BaggageOrm.id)
+        result = await self.session.scalars(query)
+        return list(result)
+
