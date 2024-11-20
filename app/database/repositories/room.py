@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload, joinedload
 
-from app.api.schemas.room import AddRoomSchema
+from app.api.schemas.room import AddRoomSchema, ReadRoomSchema
 from app.database.models.card import CardOrm
 from app.database.models.player import PlayerOrm
 from app.database.models.room import RoomOrm
@@ -17,6 +17,7 @@ class RoomRepository(AbsRepo):
         await self.session.refresh(room)
         return room
 
-    async def get_all(self) -> list[RoomOrm]:
+    async def get_all(self) -> list[ReadRoomSchema]:
         query = select(RoomOrm)
-        return await self.session.scalars(query)
+        result = await self.session.scalars(query)
+        return [ReadRoomSchema.model_validate(i) for i in result]

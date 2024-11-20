@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 
-from app.api.schemas.user import AddUserSchema
+from app.api.schemas.user import AddUserSchema, ReadUserSchema
 from app.database.models.user import UserOrm
 from app.utils.logging import setup_logger
 from app.utils.repository import AbsRepo
@@ -20,6 +20,7 @@ class UserRepository(AbsRepo):
             await self.session.rollback()
             raise
 
-    async def get_all(self) -> list[UserOrm]:
+    async def get_all(self) -> list[ReadUserSchema]:
         query = select(UserOrm)
-        return await self.session.scalars(query)
+        result = await self.session.scalars(query)
+        return [ReadUserSchema.model_validate(i) for i in result]
