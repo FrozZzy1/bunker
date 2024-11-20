@@ -1,8 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
 
-from app.api.schemas.user import AddUserSchema
-from app.database.models.user import UserOrm
+from app.api.schemas.user import AddUserSchema, ReadUserSchema
 from app.database.repositories.user import UserRepository
 from app.utils.logging import setup_logger
 
@@ -19,6 +18,6 @@ class UserService:
         except IntegrityError:
             logger.error(f'User with tg_id={user.tg_id} already exists')
 
-    async def get_all_users(self) -> list[UserOrm]:
+    async def get_all_users(self) -> list[ReadUserSchema]:
         users = await self.user_repository.get_all()
         return users

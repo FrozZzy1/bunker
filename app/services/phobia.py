@@ -1,7 +1,7 @@
+from random import choice
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.schemas.phobia import AddPhobiaSchema
-from app.database.models.phobia import PhobiaOrm
+from app.api.schemas.phobia import AddPhobiaSchema, ReadPhobiaSchema
 from app.database.repositories.phobia import PhobiaRepository
 
 
@@ -12,6 +12,10 @@ class PhobiaService:
     async def create_phobia(self, phobia: AddPhobiaSchema) -> None:
         await self.phobia_repository.add_one(phobia)
 
-    async def get_all_phobias(self) -> list[PhobiaOrm]:
+    async def get_all_phobias(self) -> list[ReadPhobiaSchema]:
         phobias = await self.phobia_repository.get_all_phobias()
         return phobias
+    
+    async def get_random_id(self) -> int:
+        phobias_id = await self.phobia_repository.get_all_id()
+        return choice(phobias_id)
