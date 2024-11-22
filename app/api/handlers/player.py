@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.schemas.player import ReadPlayerSchema, AddPlayerSchema
+from app.api.schemas.player import ReadPlayerSchema, AddPlayerSchema, UpdatePlayerSchema
 from app.services.player import PlayerService
 from app.database.database import get_session
 
@@ -20,7 +20,7 @@ async def create_player(
     session: AsyncSession = Depends(get_session)
 ):
     player_service = PlayerService(session)
-    await player_service.create_player(player)
+    return await player_service.create_player(player)
 
 
 @players_router.get(
@@ -31,3 +31,15 @@ async def get_all_players(session: AsyncSession = Depends(get_session)):
     player_service = PlayerService(session)
     players = await player_service.get_all_players()
     return players
+
+
+@players_router.patch(
+    '',
+    response_model=ReadPlayerSchema,
+)
+async def update_player(
+    player: UpdatePlayerSchema,
+    session: AsyncSession = Depends(get_session),
+):
+    player_service = PlayerService(session)
+    await player_service.update_service()

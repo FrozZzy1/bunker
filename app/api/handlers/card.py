@@ -16,11 +16,10 @@ cards_router = APIRouter(
     status_code=status.HTTP_201_CREATED,
 )
 async def create_card(
-    card: AddCardSchema,
     session: AsyncSession = Depends(get_session),
 ):
     card_service = CardService(session)
-    await card_service.create_card(card)
+    return await card_service.create_card()
 
 
 @cards_router.get(

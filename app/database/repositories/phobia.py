@@ -6,10 +6,12 @@ from app.utils.repository import AbsRepo
 
 
 class PhobiaRepository(AbsRepo):
-    async def add_one(self, data: AddPhobiaSchema) -> None:
+    async def add_one(self, data: AddPhobiaSchema) -> ReadPhobiaSchema:
         phobia = PhobiaOrm(**data.model_dump())
         self.session.add(phobia)
         await self.session.commit()
+        await self.session.refresh(phobia)
+        return ReadPhobiaSchema.model_validate(phobia)
 
     async def get_all(self) -> list[ReadPhobiaSchema]:
         query = select(PhobiaOrm)

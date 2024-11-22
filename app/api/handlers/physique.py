@@ -20,7 +20,7 @@ async def create_physique(
     session: AsyncSession = Depends(get_session),
 ):
     physique_service = PhysiqueService(session)
-    await physique_service.create_physique(physique)
+    return await physique_service.create_physique(physique)
 
 
 @physique_router.get(

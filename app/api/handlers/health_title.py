@@ -20,7 +20,7 @@ async def create_health_tilte(
     session: AsyncSession = Depends(get_session),
 ):
     health_title_service = HealthTitleService(session)
-    await health_title_service.create_health_title(health_title)
+    return await health_title_service.create_health_title(health_title)
 
 
 @health_titles_router.get(

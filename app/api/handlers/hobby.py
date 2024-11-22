@@ -20,7 +20,7 @@ async def create_hobby(
     session: AsyncSession = Depends(get_session),
 ):
     hobby_service = HobbyService(session)
-    await hobby_service.create_hobby(hobby)
+    return await hobby_service.create_hobby(hobby)
 
 
 @hobby_router.get(

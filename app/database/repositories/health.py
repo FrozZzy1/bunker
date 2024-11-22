@@ -6,10 +6,12 @@ from app.utils.repository import AbsRepo
 
 
 class HealthRepository(AbsRepo):
-    async def add_one(self, data: AddHealthSchema) -> None:
+    async def add_one(self, data: AddHealthSchema) -> ReadHealthSchema:
         health = HealthOrm(**data.model_dump())
         self.session.add(health)
         await self.session.commit()
+        await self.session.refresh(health)
+        return ReadHealthSchema.model_validate(health)
 
     async def get_all(self) -> list[ReadHealthSchema]:
         query = select(HealthOrm)

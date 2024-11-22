@@ -20,7 +20,7 @@ async def create_health(
     session: AsyncSession = Depends(get_session),
 ):
     health_service = HealthService(session)
-    await health_service.create_health(health)
+    return await health_service.create_health(health)
 
 
 @health_router.get(

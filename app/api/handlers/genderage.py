@@ -20,7 +20,7 @@ async def create_genderage(
     session: AsyncSession = Depends(get_session),
 ):
     genderage_service = GenderageService(session)
-    await genderage_service.create_genderage(genderage)
+    return await genderage_service.create_genderage(genderage)
 
 
 @genderage_router.get(

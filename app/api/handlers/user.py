@@ -20,7 +20,7 @@ async def create_user(
     session: AsyncSession = Depends(get_session),
 ):
     user_service = UserService(session)
-    await user_service.create_user(user)
+    return await user_service.create_user(user)
 
 
 @users_router.get(

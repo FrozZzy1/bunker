@@ -6,10 +6,13 @@ from app.utils.repository import AbsRepo
 
 
 class BaggageRepository(AbsRepo):
-    async def add_one(self, data: AddBaggageSchema) -> None:
+    async def add_one(self, data: AddBaggageSchema) -> ReadBaggageSchema:
         baggage = BaggageOrm(**data.model_dump())
         self.session.add(baggage)
         await self.session.commit()
+        await self.session.refresh(baggage)
+        return ReadBaggageSchema.model_validate(baggage)
+
 
     async def get_all(self) -> list[ReadBaggageSchema]:
         query = select(BaggageOrm)

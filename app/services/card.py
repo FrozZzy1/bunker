@@ -10,6 +10,7 @@ from app.services.phobia import PhobiaService
 from app.services.physique import PhysiqueService
 from app.services.profession import ProfessionService
 from app.services.trait import TraitService
+from app.utils.response import get_response_dict
 
 
 class CardService:
@@ -25,7 +26,7 @@ class CardService:
         self.trait_service = TraitService(session)
 
 
-    async def create_card(self) -> None:
+    async def create_card(self) -> dict:
         card = AddCardSchema(
             health_id=await self.health_service.get_random_id(),
             profession_id=await self.profession_service.get_random_id(),
@@ -36,7 +37,12 @@ class CardService:
             physique_id=await self.physique_service.get_random_id(),
             genderage_id=await self.genderage_service.get_random_id(),
         )
-        await self.card_repository.add_one(card)
+        card = await self.card_repository.add_one(card)
+        return get_response_dict(
+            data=card.model_dump(),
+            messages=[f'Card with id={card.id} added successfully'],
+        )
+
 
     async def get_all_cards(self) -> list[ReadCardSchema]:
         cards = await self.card_repository.get_all()
