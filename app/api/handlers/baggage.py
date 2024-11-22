@@ -20,7 +20,8 @@ async def create_baggage(
     session: AsyncSession = Depends(get_session),
 ):
     baggage_service = BaggageService(session)
-    await baggage_service.create_baggage(baggage)
+    return await baggage_service.create_baggage(baggage)
+    
 
 
 @baggages_router.get(

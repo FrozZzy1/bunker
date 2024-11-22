@@ -20,7 +20,7 @@ async def create_phobia(
     session: AsyncSession = Depends(get_session),
 ):
     phobia_service = PhobiaService(session)
-    await phobia_service.create_phobia(phobia)
+    return await phobia_service.create_phobia(phobia)
 
 
 @phobias_router.get(

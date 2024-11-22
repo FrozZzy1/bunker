@@ -20,7 +20,7 @@ async def create_profession(
     session: AsyncSession = Depends(get_session),
 ):
     profession_service = ProfessionService(session)
-    await profession_service.create_profession(profession)
+    return await profession_service.create_profession(profession)
 
 
 @professions_router.get(

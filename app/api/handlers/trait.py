@@ -20,7 +20,7 @@ async def create_trait(
     session: AsyncSession = Depends(get_session)
 ):
     trait_service = TraitService(session)
-    await trait_service.create_trait(trait)
+    return await trait_service.create_trait(trait)
 
 
 @traits_router.get(
