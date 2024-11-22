@@ -9,10 +9,12 @@ from app.utils.repository import AbsRepo
 
 
 class PlayerRepository(AbsRepo):
-    async def add_one(self, data: AddPlayerSchema) -> None:
+    async def add_one(self, data: AddPlayerSchema) -> ReadPlayerSchema:
         player = PlayerOrm(**data.model_dump())
         self.session.add(player)
         await self.session.commit()
+        await self.session.refresh(player)
+        return ReadPlayerSchema.model_validate(player)
 
     async def get_all(self) -> list[ReadPlayerSchema]:
         query = select(PlayerOrm)

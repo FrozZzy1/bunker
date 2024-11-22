@@ -11,7 +11,7 @@ logger = setup_logger()
 
 
 class UserRepository(AbsRepo):
-    async def add_one(self, data: AddUserSchema) -> None:
+    async def add_one(self, data: AddUserSchema) -> ReadUserSchema:
         user = UserOrm(**data.model_dump())
         try:
             self.session.add(user)
@@ -19,6 +19,7 @@ class UserRepository(AbsRepo):
         except IntegrityError:
             await self.session.rollback()
             raise
+        return ReadUserSchema.model_validate(user)
 
     async def get_all(self) -> list[ReadUserSchema]:
         query = select(UserOrm)

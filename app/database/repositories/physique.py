@@ -6,10 +6,12 @@ from app.utils.repository import AbsRepo
 
 
 class PhysiqueRepository(AbsRepo):
-    async def add_one(self, data: AddPhysiqueSchema) -> None:
+    async def add_one(self, data: AddPhysiqueSchema) -> ReadPhysiqueSchema:
         physique = PhysiqueOrm(**data.model_dump())
         self.session.add(physique)
         await self.session.commit()
+        await self.session.refresh(physique)
+        return ReadPhysiqueSchema.model_validate(physique)
 
     async def get_all(self) -> list[ReadPhysiqueSchema]:
         query = select(PhysiqueOrm)

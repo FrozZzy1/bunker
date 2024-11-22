@@ -6,10 +6,12 @@ from app.utils.repository import AbsRepo
 
 
 class TraitRepository(AbsRepo):
-    async def add_one(self, data: AddTraitSchema) -> None:
+    async def add_one(self, data: AddTraitSchema) -> ReadTraitSchema:
         trait = TraitOrm(**data.model_dump())
         self.session.add(trait)
         await self.session.commit()
+        await self.session.refresh(trait)
+        return ReadTraitSchema.model_validate(trait)
 
     async def get_all(self) -> list[ReadTraitSchema]:
         query = select(TraitOrm)

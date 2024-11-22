@@ -6,10 +6,12 @@ from app.utils.repository import AbsRepo
 
 
 class ProfessionRepository(AbsRepo):
-    async def add_one(self, data: AddProfessionSchema) -> None:
+    async def add_one(self, data: AddProfessionSchema) -> ReadProfessionSchema:
         profession = ProfessionOrm(**data.model_dump())
         self.session.add(profession)
         await self.session.commit()
+        await self.session.refresh(profession)
+        return ReadProfessionSchema.model_validate(profession)
 
     async def get_all(self) -> list[ReadProfessionSchema]:
         query = select(ProfessionOrm)
