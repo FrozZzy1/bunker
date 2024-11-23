@@ -1,7 +1,8 @@
 from fastapi import APIRouter, status, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.schemas.card import ReadCardSchema, AddCardSchema
+from app.api.schemas.card import ReadCardSchema
+from app.api.schemas.response import ResponseSchema
 from app.services.card import CardService
 from app.database.database import get_session
 
@@ -14,6 +15,7 @@ cards_router = APIRouter(
 @cards_router.post(
     '',
     status_code=status.HTTP_201_CREATED,
+    response_model=ResponseSchema,
 )
 async def create_card(
     session: AsyncSession = Depends(get_session),
