@@ -10,7 +10,7 @@ from app.services.phobia import PhobiaService
 from app.services.physique import PhysiqueService
 from app.services.profession import ProfessionService
 from app.services.trait import TraitService
-from app.utils.response import get_response_dict
+from app.api.schemas.response import ResponseSchema
 
 
 class CardService:
@@ -38,7 +38,7 @@ class CardService:
             genderage_id=await self.genderage_service.get_random_id(),
         )
         card = await self.card_repository.add_one(card)
-        return get_response_dict(
+        return ResponseSchema(
             data=card.model_dump(),
             messages=[f'Card with id={card.id} added successfully'],
         )

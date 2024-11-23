@@ -13,7 +13,7 @@ class TraitService:
         await self.trait_repo.add_one(trait)
 
     async def get_all_traits(self) -> list[ReadTraitSchema]:
-        traits = await self.trait_repo.get_all_traits()
+        traits = await self.trait_repo.get_all()
         return traits
     
     async def get_random_id(self) -> int:

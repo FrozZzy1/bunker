@@ -13,7 +13,7 @@ class HobbyService:
         await self.hobby_repo.add_one(hobby)
 
     async def get_all_hobbies(self) -> list[ReadHobbySchema]:
-        hobbies = await self.hobby_repo.get_all_hobbies()
+        hobbies = await self.hobby_repo.get_all()
         return hobbies
     
     async def get_random_id(self) -> int:

@@ -13,7 +13,7 @@ class HealthService:
         await self.health_repository.add_one(health)
 
     async def get_all_health(self) -> list[ReadHealthSchema]:
-        health = await self.health_repository.get_all_health()
+        health = await self.health_repository.get_all()
         return health
     
     async def get_random_id(self) -> int:
