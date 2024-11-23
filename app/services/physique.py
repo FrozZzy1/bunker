@@ -13,7 +13,7 @@ class PhysiqueService:
         await self.physique_repo.add_one(physique)
 
     async def get_all_physique(self) -> list[ReadPhysiqueSchema]:
-        physique = await self.physique_repo.get_all_physique()
+        physique = await self.physique_repo.get_all()
         return physique
     
     async def get_random_id(self) -> int:

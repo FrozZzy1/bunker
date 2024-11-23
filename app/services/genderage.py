@@ -13,7 +13,7 @@ class GenderageService:
         await self.genderage_repo.add_one(genderage)
 
     async def get_all_genderages(self) -> list[ReadGenderageSchema]:
-        genderages = await self.genderage_repo.get_all_genderages()
+        genderages = await self.genderage_repo.get_all()
         return genderages
     
     async def get_random_id(self) -> int:

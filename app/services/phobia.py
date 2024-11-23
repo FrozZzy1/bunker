@@ -13,7 +13,7 @@ class PhobiaService:
         await self.phobia_repository.add_one(phobia)
 
     async def get_all_phobias(self) -> list[ReadPhobiaSchema]:
-        phobias = await self.phobia_repository.get_all_phobias()
+        phobias = await self.phobia_repository.get_all()
         return phobias
     
     async def get_random_id(self) -> int:
