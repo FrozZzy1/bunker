@@ -17,9 +17,13 @@ class HobbyService:
             messages=[f'Hobby with id={hobby.id} added successfully'],
         )
 
-    async def get_all_hobbies(self) -> list[ReadHobbySchema]:
+    async def get_all_hobbies(self) -> ResponseSchema:
         hobbies = await self.hobby_repo.get_all()
-        return hobbies
+        data = [i.model_dump() for i in hobbies]
+        return ResponseSchema(
+            data={'hobbies': data},
+            message=['All hobbies retrieved successfully'],
+        )
     
     async def get_random_id(self) -> int:
         hobbies_id = await self.hobby_repo.get_all_id()

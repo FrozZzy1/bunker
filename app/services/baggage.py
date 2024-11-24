@@ -2,7 +2,7 @@ from random import choice
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.schemas.baggage import AddBaggageSchema, ReadBaggageSchema
+from app.api.schemas.baggage import AddBaggageSchema
 from app.api.schemas.response import ResponseSchema
 from app.database.repositories.baggage import BaggageRepository
 
@@ -19,9 +19,13 @@ class BaggageService:
             messages=[f'Baggage with id={baggage.id} added successfully'],
         )
 
-    async def get_all_baggages(self) -> list[ReadBaggageSchema]:
+    async def get_all_baggages(self) -> ResponseSchema:
         baggages = await self.baggage_repository.get_all()
-        return baggages
+        data = [i.model_dump() for i in baggages]
+        return ResponseSchema(
+            data={'baggages': data},
+            messages=[f'All baggages retrieved successfully'],
+        )
     
     async def get_random_id(self) -> int:
         baggages_id = await self.baggage_repository.get_all_id()

@@ -26,6 +26,10 @@ class UserService:
             messages=[f'User with id={user.id} added successfully'],
         )
 
-    async def get_all_users(self) -> list[ReadUserSchema]:
+    async def get_all_users(self) -> ResponseSchema:
         users = await self.user_repository.get_all()
-        return users
+        data = [i.model_dump() for i in users]
+        return ResponseSchema(
+            data={'users': data},
+            messages=['All users retrieved successfully'],
+        )

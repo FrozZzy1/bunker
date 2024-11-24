@@ -16,6 +16,10 @@ class PlayerService:
             messages=[f'Player with id={player.id} added successfully'],
         )
 
-    async def get_all_players(self) -> list[ReadPlayerSchema]:
+    async def get_all_players(self) -> ResponseSchema:
         players = await self.player_repository.get_all()
-        return players
+        data = [i.model_dump() for i in players]
+        return ResponseSchema(
+            data={'players': data},
+            messages=['All players retrieved successfully'],
+        )

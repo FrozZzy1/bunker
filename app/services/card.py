@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.schemas.card import AddCardSchema, ReadCardSchema
+from app.api.schemas.card import AddCardSchema
 from app.database.repositories.card import CardRepository
 from app.services.baggage import BaggageService
 from app.services.genderage import GenderageService
@@ -44,6 +44,10 @@ class CardService:
         )
 
 
-    async def get_all_cards(self) -> list[ReadCardSchema]:
+    async def get_all_cards(self) -> ResponseSchema:
         cards = await self.card_repository.get_all()
-        return cards
+        data = [i.model_dump() for i in cards]
+        return ResponseSchema(
+            data={'cards': data},
+            messages=['All cards retrieved successfully'],
+        )
