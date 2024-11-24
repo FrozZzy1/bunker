@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.schemas.health import AddHealthSchema, ReadHealthSchema
+from app.api.schemas.response import ResponseSchema
 from app.database.database import get_session
 from app.services.health import HealthService
 
@@ -14,18 +14,18 @@ health_router = APIRouter(
 @health_router.post(
     '',
     status_code=status.HTTP_201_CREATED,
+    response_model=ResponseSchema,
 )
 async def create_health(
-    health: AddHealthSchema,
     session: AsyncSession = Depends(get_session),
 ):
     health_service = HealthService(session)
-    return await health_service.create_health(health)
+    return await health_service.create_health()
 
 
 @health_router.get(
     '',
-    response_model=list[ReadHealthSchema],
+    response_model=ResponseSchema,
 )
 async def get_all_health(session: AsyncSession = Depends(get_session)):
     health_service = HealthService(session)

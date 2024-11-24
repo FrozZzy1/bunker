@@ -26,7 +26,7 @@ class CardService:
         self.trait_service = TraitService(session)
 
 
-    async def create_card(self) -> dict:
+    async def create_card(self) -> ResponseSchema:
         card = AddCardSchema(
             health_id=await self.health_service.get_random_id(),
             profession_id=await self.profession_service.get_random_id(),

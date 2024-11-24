@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.schemas.hobby import AddHobbySchema, ReadHobbySchema
+from app.api.schemas.response import ResponseSchema
+from app.api.schemas.hobby import AddHobbySchema
 from app.database.database import get_session
 from app.services.hobby import HobbyService
 
@@ -14,6 +15,7 @@ hobby_router = APIRouter(
 @hobby_router.post(
     '',
     status_code=status.HTTP_201_CREATED,
+    response_model=ResponseSchema,
 )
 async def create_hobby(
     hobby: AddHobbySchema,
@@ -25,7 +27,7 @@ async def create_hobby(
 
 @hobby_router.get(
     '',
-    response_model=list[ReadHobbySchema],
+    response_model=ResponseSchema,
 )
 async def get_all_hobbies(session: AsyncSession = Depends(get_session)):
     hobby_service = HobbyService(session)

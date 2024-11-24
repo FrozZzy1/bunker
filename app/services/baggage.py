@@ -11,12 +11,12 @@ class BaggageService:
     def __init__(self, session: AsyncSession) -> None:
         self.baggage_repository = BaggageRepository(session)
 
-    async def create_baggage(self, baggage: AddBaggageSchema) -> dict:
+    async def create_baggage(self, baggage: AddBaggageSchema) -> ResponseSchema:
         baggage = await self.baggage_repository.add_one(baggage)
         
         return ResponseSchema(
             data=baggage.model_dump(),
-            messages=[f'Baggage with id={baggage.id} added successfully']
+            messages=[f'Baggage with id={baggage.id} added successfully'],
         )
 
     async def get_all_baggages(self) -> list[ReadBaggageSchema]:
