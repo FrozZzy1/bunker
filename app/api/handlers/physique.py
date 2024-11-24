@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.schemas.physique import AddPhysiqueSchema, ReadPhysiqueSchema
+from app.api.schemas.response import ResponseSchema
+from app.api.schemas.physique import AddPhysiqueSchema
 from app.database.database import get_session
 from app.services.physique import PhysiqueService
 
@@ -14,6 +15,7 @@ physique_router = APIRouter(
 @physique_router.post(
     '',
     status_code=status.HTTP_201_CREATED,
+    response_model=ResponseSchema,
 )
 async def create_physique(
     physique: AddPhysiqueSchema,
@@ -25,7 +27,7 @@ async def create_physique(
 
 @physique_router.get(
     '',
-    response_model=list[ReadPhysiqueSchema],
+    response_model=ResponseSchema,
 )
 async def get_all_physique(session: AsyncSession = Depends(get_session)):
     physique_service = PhysiqueService(session)

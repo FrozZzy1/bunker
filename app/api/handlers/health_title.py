@@ -1,7 +1,8 @@
 from fastapi import APIRouter, status, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.schemas.health import AddHealthTitleSchema, ReadHealthTitleSchema
+from app.api.schemas.response import ResponseSchema
+from app.api.schemas.health import AddHealthTitleSchema
 from app.database.database import get_session
 from app.services.health_title import HealthTitleService
 
@@ -14,6 +15,7 @@ health_titles_router = APIRouter(
 @health_titles_router.post(
     '',
     status_code=status.HTTP_201_CREATED,
+    response_model=ResponseSchema,
 )
 async def create_health_tilte(
     health_title: AddHealthTitleSchema,
@@ -25,7 +27,7 @@ async def create_health_tilte(
 
 @health_titles_router.get(
     '',
-    response_model=list[ReadHealthTitleSchema],
+    response_model=ResponseSchema,
 )
 async def get_all_health_titles(session: AsyncSession = Depends(get_session)):
     health_title_service = HealthTitleService(session)

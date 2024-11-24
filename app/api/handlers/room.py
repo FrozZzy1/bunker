@@ -1,7 +1,8 @@
 from fastapi import APIRouter, status, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.schemas.room import ReadRoomSchema, AddRoomSchema
+from app.api.schemas.response import ResponseSchema
+from app.api.schemas.room import AddRoomSchema
 from app.services.room import RoomService
 from app.database.database import get_session
 
@@ -13,8 +14,8 @@ rooms_router = APIRouter(
 
 @rooms_router.post(
     '',
-    response_model=ReadRoomSchema,
     status_code=status.HTTP_201_CREATED,
+    response_model=ResponseSchema,
 )
 async def create_room(
     room: AddRoomSchema,
@@ -26,7 +27,7 @@ async def create_room(
 
 @rooms_router.get(
     '',
-    response_model=list[ReadRoomSchema],
+    response_model=ResponseSchema,
 )
 async def get_all_rooms(session: AsyncSession = Depends(get_session)):
     room_service = RoomService(session)

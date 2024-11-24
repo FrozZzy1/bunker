@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.schemas.genderage import AddGenderageSchema, ReadGenderageSchema
+from app.api.schemas.genderage import AddGenderageSchema
+from app.api.schemas.response import ResponseSchema
 from app.database.database import get_session
 from app.services.genderage import GenderageService
 
@@ -14,6 +15,7 @@ genderage_router = APIRouter(
 @genderage_router.post(
     '',
     status_code=status.HTTP_201_CREATED,
+    response_model=ResponseSchema,
 )
 async def create_genderage(
     genderage: AddGenderageSchema,
@@ -25,7 +27,7 @@ async def create_genderage(
 
 @genderage_router.get(
     '',
-    response_model=list[ReadGenderageSchema],
+    response_model=ResponseSchema,
 )
 async def get_all_genderages(session: AsyncSession = Depends(get_session)):
     genderage_service = GenderageService(session)
