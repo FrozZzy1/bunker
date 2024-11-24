@@ -2,6 +2,7 @@ from random import choice
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.schemas.genderage import AddGenderageSchema, ReadGenderageSchema
+from app.api.schemas.response import ResponseSchema
 from app.database.repositories.genderage import GenderageRepository
 
 
@@ -9,8 +10,12 @@ class GenderageService:
     def __init__(self, session: AsyncSession) -> None:
         self.genderage_repo = GenderageRepository(session)
 
-    async def create_genderage(self, genderage: AddGenderageSchema) -> None:
-        await self.genderage_repo.add_one(genderage)
+    async def create_genderage(self, genderage: AddGenderageSchema) -> ResponseSchema:
+        genderage = await self.genderage_repo.add_one(genderage)
+        return ResponseSchema(
+            data=genderage.model_dump(),
+            messages=[f'Genderage with id={genderage.id} added successfully'],
+        )
 
     async def get_all_genderages(self) -> list[ReadGenderageSchema]:
         genderages = await self.genderage_repo.get_all()
