@@ -2,6 +2,6 @@ from pydantic import BaseModel
 
 
 class ResponseSchema(BaseModel):
-    data: dict | None = None
-    errors: dict | None = None
+    data: dict[str, list[dict]] | None = None
+    errors: dict[str, list[str]] | None = None
     messages: list[str] | None = None
