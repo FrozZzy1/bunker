@@ -25,9 +25,13 @@ class HealthService:
             messages=[f'Health with id={health.id} added successfully'],
         )
 
-    async def get_all_health(self) -> list[ReadHealthSchema]:
+    async def get_all_health(self) -> ResponseSchema:
         health = await self.health_repository.get_all()
-        return health
+        data = [i.model_dump() for i in health]
+        return ResponseSchema(
+            data={'health': data},
+            message=['All health retrieved successfully'],
+        )
     
     async def get_random_id(self) -> int:
         health_id = await self.health_repository.get_all_id()

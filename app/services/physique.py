@@ -17,9 +17,13 @@ class PhysiqueService:
             messages=[f'Physique with id={physique.id} added successfully'],
         )
 
-    async def get_all_physique(self) -> list[ReadPhysiqueSchema]:
+    async def get_all_physique(self) -> ResponseSchema:
         physique = await self.physique_repo.get_all()
-        return physique
+        data = [i.model_dump() for i in physique]
+        return ResponseSchema(
+            data={'physique': data},
+            messages=['All physique retrieved successfully'],
+        )
     
     async def get_random_id(self) -> int:
         physiques_id = await self.physique_repo.get_all_id()

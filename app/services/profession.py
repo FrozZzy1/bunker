@@ -17,9 +17,13 @@ class ProfessionService:
             messages=[f'Profession with id={profession.id} added successfully'],
         )
 
-    async def get_all_professions(self) -> list[ReadProfessionSchema]:
+    async def get_all_professions(self) -> ResponseSchema:
         professions = await self.profession_repository.get_all()
-        return professions
+        data = [i.model_dump() for i in professions]
+        return ResponseSchema(
+            data={'professions': data},
+            messages=['All professions retrieved successfully'],
+        )
     
     async def get_random_id(self) -> int:
         professions_id = await self.profession_repository.get_all_id()

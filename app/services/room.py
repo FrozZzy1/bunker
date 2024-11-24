@@ -18,6 +18,10 @@ class RoomService:
             messages=[f'Room with id={room.id} added successfully'],
         )
 
-    async def get_all_rooms(self) -> list[ReadRoomSchema]:
+    async def get_all_rooms(self) -> ResponseSchema:
         rooms = await self.room_repository.get_all()
-        return rooms
+        data = [i.model_dump() for i in rooms]
+        return ResponseSchema(
+            data={'rooms': data},
+            messages=['All rooms retrieved successfully'],
+        )

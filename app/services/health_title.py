@@ -1,7 +1,7 @@
 from random import choice
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.schemas.health import AddHealthTitleSchema, ReadHealthTitleSchema
+from app.api.schemas.health import AddHealthTitleSchema
 from app.api.schemas.response import ResponseSchema
 from app.database.repositories.health_title import HealthTitleRepository
 
@@ -17,9 +17,13 @@ class HealthTitleService:
             messages=[f'Health title with id={health_title.id} added successfully'],
         )
 
-    async def get_all_health_titles(self) -> list[ReadHealthTitleSchema]:
+    async def get_all_health_titles(self) -> ResponseSchema:
         health_titles = await self.health_title_repository.get_all()
-        return health_titles
+        data = [i.model_dump() for i in health_titles]
+        return ResponseSchema(
+            data={'health_titles': data},
+            messages=['All health titles retrieved successfully'],
+        )
     
     async def get_random_id(self) -> int:
         health_titles_id = await self.health_title_repository.get_all_id()

@@ -17,9 +17,13 @@ class PhobiaService:
             messages=[f'Phobia with id={phobia.id} added successfully'],
         )
 
-    async def get_all_phobias(self) -> list[ReadPhobiaSchema]:
+    async def get_all_phobias(self) -> ResponseSchema:
         phobias = await self.phobia_repository.get_all()
-        return phobias
+        data = [i.model_dump() for i in phobias]
+        return ResponseSchema(
+            data={'phobias': data},
+            messages=['All phobias retrieved successfully'],
+        )
     
     async def get_random_id(self) -> int:
         phobias_id = await self.phobia_repository.get_all_id()

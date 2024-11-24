@@ -17,9 +17,13 @@ class TraitService:
             messages=[f'Trait with id={trait.id} added successfully'],
         )
 
-    async def get_all_traits(self) -> list[ReadTraitSchema]:
+    async def get_all_traits(self) -> ResponseSchema:
         traits = await self.trait_repo.get_all()
-        return traits
+        data = [i.model_dump() for i in traits]
+        return ResponseSchema(
+            data={'traits': data},
+            messages=['All traits retrieved successfully'],
+        )
     
     async def get_random_id(self) -> int:
         traits_id = await self.trait_repo.get_all_id()
