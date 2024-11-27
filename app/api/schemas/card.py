@@ -33,3 +33,15 @@ class AddCardSchema(BaseModel):
     trait_id: int
     physique_id: int
     genderage_id: int
+
+
+class UpdateCardSchema(BaseModel):
+    id: int
+    health_id: int
+    profession_id: int
+    phobia_id: int
+    baggage_id: int
+    hobby_id: int
+    trait_id: int
+    physique_id: int
+    genderage_id: int
