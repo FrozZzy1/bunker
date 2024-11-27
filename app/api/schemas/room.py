@@ -19,5 +19,5 @@ class AddRoomSchema(BaseModel):
 
 
 class UpdateRoomSchema(BaseModel):
-    player_id: int | None = None
-    state: int | None = None
+    id: int
+    state: int

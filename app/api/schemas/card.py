@@ -36,6 +36,7 @@ class AddCardSchema(BaseModel):
 
 
 class UpdateCardSchema(BaseModel):
+    id: int
     health_id: int
     profession_id: int
     phobia_id: int
