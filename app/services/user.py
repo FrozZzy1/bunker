@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
 
 from app.api.schemas.response import ResponseSchema
-from app.api.schemas.user import AddUserSchema, ReadUserSchema
+from app.api.schemas.user import AddUserSchema, ReadUserSchema, UpdateUserSchema
 from app.database.repositories.user import UserRepository
 from app.utils.logging import setup_logger
 
@@ -32,4 +32,11 @@ class UserService:
         return ResponseSchema(
             data={'users': data},
             messages=['All users retrieved successfully'],
+        )
+    
+    async def update_user(self, id: int, user: UpdateUserSchema) -> ResponseSchema:
+        user = await self.user_repository.update(id, user)
+        return ResponseSchema(
+            data={'user': user.model_dump()},
+            messages=['Имя игрока успешно обновлено.'],
         )

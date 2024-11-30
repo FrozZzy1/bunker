@@ -2,7 +2,7 @@ from fastapi import APIRouter, status, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.schemas.response import ResponseSchema
-from app.api.schemas.user import AddUserSchema
+from app.api.schemas.user import AddUserSchema, UpdateUserSchema
 from app.database.database import get_session
 from app.services.user import UserService
 
@@ -33,3 +33,17 @@ async def get_all_users(session: AsyncSession = Depends(get_session)):
     user_service = UserService(session)
     users = await user_service.get_all_users()
     return users
+
+
+@users_router.patch(
+    '/{id}',
+    response_model=ResponseSchema,
+)
+async def update_user(
+    id: int,
+    user: UpdateUserSchema,
+    session: AsyncSession = Depends(get_session)
+):
+    user_service = UserService(session)
+    user = await user_service.update_user(id, user)
+    return user
