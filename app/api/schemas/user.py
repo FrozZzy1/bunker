@@ -18,5 +18,4 @@ class AddUserSchema(BaseModel):
 
 
 class UpdateUserSchema(BaseModel):
-    id: int
     name: str
