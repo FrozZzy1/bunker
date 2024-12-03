@@ -34,8 +34,8 @@ class UserService:
             messages=['All users retrieved successfully'],
         )
     
-    async def update_user(self, id: int, user: UpdateUserSchema) -> ResponseSchema:
-        user = await self.user_repository.update(id, user)
+    async def update_user(self, tg_id: int, user: UpdateUserSchema) -> ResponseSchema:
+        user = await self.user_repository.update(tg_id, user)
         return ResponseSchema(
             data={'user': user.model_dump()},
             messages=['Имя игрока успешно обновлено.'],

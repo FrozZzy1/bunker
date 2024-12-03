@@ -27,13 +27,14 @@ class UserRepository(AbsRepo):
         result = await self.session.scalars(query)
         return [ReadUserSchema.model_validate(i) for i in result]
 
-    async def update(self, id: int, user: UpdateUserSchema) -> ReadUserSchema:
+    async def update(self, tg_id: int, user: UpdateUserSchema) -> ReadUserSchema:
         query = (
             update(UserOrm)
-            .filter(UserOrm.id == id)
+            .filter(UserOrm.tg_id == tg_id)
             .values(name=user.name)
         )
         await self.session.execute(query)
-        query = select(UserOrm).filter(UserOrm.id == id)
+        await self.session.commit()
+        query = select(UserOrm).filter(UserOrm.tg_id == tg_id)
         result = await self.session.scalars(query)
-        return ReadUserSchema.model_validate(result)
+        return ReadUserSchema.model_validate(result.first())

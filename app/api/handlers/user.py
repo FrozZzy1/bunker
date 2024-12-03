@@ -36,14 +36,14 @@ async def get_all_users(session: AsyncSession = Depends(get_session)):
 
 
 @users_router.patch(
-    '/{id}',
+    '/{tg_id}',
     response_model=ResponseSchema,
 )
 async def update_user(
-    id: int,
+    tg_id: int,
     user: UpdateUserSchema,
     session: AsyncSession = Depends(get_session)
 ):
     user_service = UserService(session)
-    user = await user_service.update_user(id, user)
+    user = await user_service.update_user(tg_id, user)
     return user
