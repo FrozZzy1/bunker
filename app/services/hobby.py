@@ -13,7 +13,7 @@ class HobbyService:
     async def create_hobby(self, hobby: AddHobbySchema) -> ResponseSchema:
         hobby = await self.hobby_repo.add_one(hobby)
         return ResponseSchema(
-            data=hobby.model_dump(),
+            data={'hobby': hobby.model_dump()},
             messages=[f'Hobby with id={hobby.id} added successfully'],
         )
 

@@ -13,7 +13,7 @@ class ProfessionService:
     async def create_profession(self, profession: AddProfessionSchema) -> ResponseSchema:
         profession = await self.profession_repository.add_one(profession)
         return ResponseSchema(
-            data=profession.model_dump(),
+            data={'profession': profession.model_dump()},
             messages=[f'Profession with id={profession.id} added successfully'],
         )
 

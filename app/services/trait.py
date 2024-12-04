@@ -13,7 +13,7 @@ class TraitService:
     async def create_trait(self, trait: AddTraitSchema) -> ResponseSchema:
         trait = await self.trait_repo.add_one(trait)
         return ResponseSchema(
-            data=trait.model_dump(),
+            data={'trait': trait.model_dump()},
             messages=[f'Trait with id={trait.id} added successfully'],
         )
 

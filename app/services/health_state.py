@@ -13,7 +13,7 @@ class HealthStateService:
     async def create_health_state(self, health_state: AddHealthStateSchema) -> ResponseSchema:
         health_state = await self.health_state_repository.add_one(health_state)
         return ResponseSchema(
-            data=health_state.model_dump(),
+            data={'health_state': health_state.model_dump()},
             messages=[f'Health state with id={health_state.id} added successfully'],
         )
 

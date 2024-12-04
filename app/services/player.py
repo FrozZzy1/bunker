@@ -12,7 +12,7 @@ class PlayerService:
     async def create_player(self, player: AddPlayerSchema) -> ResponseSchema:
         player = await self.player_repository.add_one(player)
         return ResponseSchema(
-            data=player.model_dump(),
+            data={'player': player.model_dump()},
             messages=[f'Player with id={player.id} added successfully'],
         )
 

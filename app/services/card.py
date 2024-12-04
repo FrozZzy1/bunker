@@ -39,7 +39,7 @@ class CardService:
         )
         card = await self.card_repository.add_one(card)
         return ResponseSchema(
-            data=card.model_dump(),
+            data={'card': card.model_dump()},
             messages=[f'Card with id={card.id} added successfully'],
         )
 

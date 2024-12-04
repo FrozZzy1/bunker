@@ -21,7 +21,7 @@ class HealthService:
         )
         health = await self.health_repository.add_one(health)
         return ResponseSchema(
-            data=health.model_dump(),
+            data={'health': health.model_dump()},
             messages=[f'Health with id={health.id} added successfully'],
         )
 

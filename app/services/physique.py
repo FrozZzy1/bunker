@@ -13,7 +13,7 @@ class PhysiqueService:
     async def create_physique(self, physique: AddPhysiqueSchema) -> ResponseSchema:
         physique = await self.physique_repo.add_one(physique)
         return ResponseSchema(
-            data=physique.model_dump(),
+            data={'physique': physique.model_dump()},
             messages=[f'Physique with id={physique.id} added successfully'],
         )
 

@@ -13,7 +13,7 @@ class GenderageService:
     async def create_genderage(self, genderage: AddGenderageSchema) -> ResponseSchema:
         genderage = await self.genderage_repo.add_one(genderage)
         return ResponseSchema(
-            data=genderage.model_dump(),
+            data={'genderage': genderage.model_dump()},
             messages=[f'Genderage with id={genderage.id} added successfully'],
         )
 
