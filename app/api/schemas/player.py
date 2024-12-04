@@ -15,7 +15,6 @@ class ReadPlayerSchema(BaseModel):
 class AddPlayerSchema(BaseModel):
     user_id: int
     room_id: int
-    card_id: int | None = None
 
 
 class UpdatePlayerSchema(BaseModel):
