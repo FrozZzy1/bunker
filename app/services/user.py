@@ -22,7 +22,7 @@ class UserService:
                 errors={'tg_id': [f'User with tg_id={user.tg_id} already exists']},
             )
         return ResponseSchema(
-            data=user.model_dump(),
+            data={'user': user.model_dump()},
             messages=[f'User with id={user.id} added successfully'],
         )
 

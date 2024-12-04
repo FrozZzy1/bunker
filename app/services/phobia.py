@@ -13,7 +13,7 @@ class PhobiaService:
     async def create_phobia(self, phobia: AddPhobiaSchema) -> ResponseSchema:
         phobia = await self.phobia_repository.add_one(phobia)
         return ResponseSchema(
-            data=phobia.model_dump(),
+            data={'phobia': phobia.model_dump()},
             messages=[f'Phobia with id={phobia.id} added successfully'],
         )
 

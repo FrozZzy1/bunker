@@ -13,7 +13,7 @@ class HealthTitleService:
     async def create_health_title(self, health_title: AddHealthTitleSchema) -> ResponseSchema:
         health_title = await self.health_title_repository.add_one(health_title)
         return ResponseSchema(
-            data=health_title.model_dump(),
+            data={'health_title': health_title.model_dump()},
             messages=[f'Health title with id={health_title.id} added successfully'],
         )
 
