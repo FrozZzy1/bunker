@@ -33,3 +33,13 @@ async def get_all_rooms(session: AsyncSession = Depends(get_session)):
     room_service = RoomService(session)
     rooms = await room_service.get_all_rooms()
     return rooms
+
+
+@rooms_router.get(
+    '/{code}',
+    response_model=ResponseSchema,
+)
+async def get_room_by_code(code: str, session: AsyncSession = Depends(get_session)):
+    room_service = RoomService(session)
+    room = await room_service.get_room_by_code(code)
+    return room

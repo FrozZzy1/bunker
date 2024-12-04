@@ -14,7 +14,7 @@ class RoomService:
         room.code = await generate_room_code()
         room = await self.room_repository.add_one(room)
         return ResponseSchema(
-            data=room.model_dump(),
+            data={'room': room.model_dump()},
             messages=[f'Room with id={room.id} added successfully'],
         )
 
@@ -24,4 +24,11 @@ class RoomService:
         return ResponseSchema(
             data={'rooms': data},
             messages=['All rooms retrieved successfully'],
+        )
+    
+    async def get_room_by_code(self, code: str) -> ResponseSchema:
+        room = await self.room_repository.get_by_code(code)
+        return ResponseSchema(
+            data={'room': room.model_dump()},
+            messages=[f'Room with {code=} retrieved successfully'],
         )
