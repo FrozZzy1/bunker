@@ -17,3 +17,8 @@ class RoomRepository(AbsRepo):
         query = select(RoomOrm)
         result = await self.session.scalars(query)
         return [ReadRoomSchema.model_validate(i) for i in result]
+    
+    async def get_by_code(self, code: str) -> ReadRoomSchema:
+        query = select(RoomOrm).filter(RoomOrm.code == code)
+        result = await self.session.scalars(query)
+        return ReadRoomSchema.model_validate(result.first())
